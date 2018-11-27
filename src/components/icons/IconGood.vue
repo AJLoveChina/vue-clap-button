@@ -3,10 +3,9 @@
 </template>
 
 <script>
-
-  export default {
-    name: "icon-love"
-  }
+    export default {
+        name: "icon-good"
+    }
 </script>
 
 <style scoped>

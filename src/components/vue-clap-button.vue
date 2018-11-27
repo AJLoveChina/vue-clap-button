@@ -1,12 +1,33 @@
 <template>
-  <div ref="circle" @click="click" @mouseover="mouseover" @mouseleave="mouseleave"
-       class="vclapbtn-bin animated"
-       :style="{boxShadow : isHover || isActive ? `${iconColor} 0 0 10px` : null, borderColor : iconColor}"
-       :class="{pulse: clicking}">
-    <div ref="btn" class="animated" :class="{tada: clicking}">
-      <icon-base :iconColor="iconColor">
-        <icon-love/>
-      </icon-base>
+  <div class="vclapbtn-bin-wrap" :style="{width : `${size}px`, height: `${size}px`}"
+       @mouseenter="isAllHover = true" @mouseleave="isAllHover = false">
+    <div class="counter bounceInUp animated"
+         v-if="maxClick > 1"
+         v-show="clickedTime > 0 && isHover"
+         :style="{left: `${size / 2}px`, top: `-18px`, color: `${iconColorNormal}`}">
+      +{{clickedTime}}
+    </div>
+    <icon-chips ref="chips" :size="size"/>
+    <cancel-love :size="size" :colorNormal="iconColorNormal" :colorActive="iconColorActive"
+      v-if="isShowCancelLove" @cancel="cancelLove()" />
+
+    <div ref="circle" @click="click" @mouseenter="mouseenter" @mouseleave="mouseleave"
+         class="vclapbtn-bin animated infinite"
+         :style="{boxShadow : isHover ? `${iconColor} 0 0 10px` : null,
+                borderColor : iconColor,
+                width: `${size - 2}px`,
+                height: `${size - 2}px`,
+                position: 'relative',
+                backgroundColor: `${bgColor}`,
+                lineHeight: `${size}px`}"
+         :class="{pulse: clicking}">
+      <div ref="btn" class="animated" :class="{tada: clicking}">
+        <icon-base :iconColor="iconColor">
+          <icon-love v-if="icon === 'love'"/>
+          <icon-star v-if="icon === 'star'"/>
+          <icon-good v-if="icon === 'good'"/>
+        </icon-base>
+      </div>
     </div>
   </div>
 </template>
@@ -14,11 +35,27 @@
 <script>
   import * as util from '../assets/utils'
   import IconBase from './IconBase'
-  import IconLove from './IconLove'
+  import IconLove from './icons/IconLove'
+  import IconGood from './icons/IconGood'
+  import IconStar from './icons/IconStar'
+  import IconChips from './IconChips'
+  import CancelLove from './CancelLove'
 
   export default {
     name: "vueClapButton",
+    components: {
+      IconLove,
+      IconBase,
+      IconChips,
+      CancelLove,
+      IconGood,
+      IconStar,
+    },
     props: {
+      icon: {
+        type: String,
+        default: 'good'
+      },
       iconColorActive: {
         type: String,
         default: "#F56C6C"
@@ -27,16 +64,26 @@
         type: String,
         default: "#909399"
       },
+      bgColor: {
+        type:String,
+        default: "#FFF"
+      },
       maxClick: {
         type: Number,
         default: 1
-      }
+      },
+      size: {
+        type: Number,
+        default: 50
+      },
     },
     data() {
       return {
+        isAllHover: false,
         isHover: false,
         clicking: false,
         clickedTime: 0,
+        mouseEnterClickTimes: 0,
       }
     },
     computed: {
@@ -48,18 +95,27 @@
       },
       isReachMaxClick() {
         return this.clickedTime >= this.maxClick;
+      },
+      isShowCancelLove() {
+        return this.isAllHover && this.clickedTime > 0 && this.maxClick > 1 && this.mouseEnterClickTimes === 0;
       }
     },
-    components: {
-      IconLove,
-      IconBase,
+    created() {
+      this.debounceEffect = util.debounce(this._debounceEffect, 300);
+      this.debounceLoveOver = util.debounce(this._debounceLoveOver, 1000);
+      let iconsList = ['good', 'love', 'star'];
+      this.icon = this.icon.toLowerCase();
+      if (iconsList.indexOf(this.icon) === -1) {
+        this.icon = iconsList[0];
+      }
     },
     methods: {
       mouseleave() {
         this.isHover = false;
       },
-      mouseover() {
+      mouseenter() {
         this.isHover = true;
+        this.mouseEnterClickTimes = 0;
       },
       click() {
         if (this.canClick()) {
@@ -70,16 +126,27 @@
           }
         }
       },
+      getClaps() {
+        return this.clickedTime;
+      },
       cancelLove() {
         this.clickedTime = 0;
+        this.$emit("cancel");
       },
       love() {
         this.clicking = true;
+        this.clickedTime++;
+        this.mouseEnterClickTimes++;
+        this.$emit("clap", this.clickedTime);
 
-        setTimeout(() => {
-          this.clickedTime ++;
-          this.clicking = false;
-        }, 1000)
+        this.debounceEffect();
+        this.debounceLoveOver();
+      },
+      _debounceEffect() {
+        this.$refs.chips.boom();
+      },
+      _debounceLoveOver() {
+        this.clicking = false;
       },
       canClick() {
         if (this.maxClick === 1) {
@@ -92,11 +159,21 @@
 </script>
 
 <style scoped>
+  .counter {
+    position: absolute;
+    transition: all 1s;
+    user-select: none;
+    font-weight: bold;
+  }
+
+  .vclapbtn-bin-wrap {
+    position: relative;
+    font-family: "Microsoft YaHei";
+    font-size: 12px;
+  }
+
   .vclapbtn-bin {
-    width: 50px;
-    height: 50px;
     cursor: pointer;
-    line-height: 50px;
     border: 1px solid #ccc;
     border-radius: 50%;
     text-align: center;
@@ -184,6 +261,37 @@
 
   .animated.infinite {
     animation-iteration-count: infinite;
+  }
+
+  @keyframes bounceInUp {
+    0%,60%,75%,90%,to {
+      animation-timing-function: cubic-bezier(.215,.61,.355,1)
+    }
+    0% {
+      opacity: 0;
+      transform:translate(-50%,-5px)
+    }
+
+    60% {
+      opacity: 1;
+      transform:translate(-50%,5px)
+    }
+
+    90% {
+      transform:translate(-50%,-2px)
+    }
+
+    100% {
+      transform:translate(-50%,0)
+    }
+
+    to {
+      transform:translate(-50%,0)
+    }
+  }
+
+  .bounceInUp {
+    animation-name: bounceInUp
   }
 
 </style>
