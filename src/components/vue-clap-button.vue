@@ -15,11 +15,13 @@
          class="vclapbtn-bin animated infinite"
          :style="{boxShadow : isHover && isHaveBorder ? `${iconColor} 0 0 10px` : null,
                 border : isHaveBorder ? `1px solid ${iconColor}` : null,
-                width: isHaveBorder ? `${size - 2}px` : `${size}px`,
-                height: isHaveBorder ? `${size - 2}px` : `${size}px`,
+                width: `${size - 4}px`,
+                height: `${size - 4}px`,
+                margin: '2px',
                 position: 'relative',
+                boxSizing: 'border-box',
                 backgroundColor: `${bgColor}`,
-                lineHeight: `${size}px`}"
+                lineHeight: `${size - 4}px`}"
          :class="{pulse: clicking}">
       <div ref="btn" class="animated" :class="{tada: clicking}">
         <icon-base :iconColor="iconColor">

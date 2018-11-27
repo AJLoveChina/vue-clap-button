@@ -1,7 +1,7 @@
 {
   "name": "vue-clap-button",
   "description": "A Medium like clap button👍",
-  "version": "1.0.2",
+  "version": "1.0.4",
   "author": "hejie2.0",
   "main": "src/index.js",
   "license": "MIT",
