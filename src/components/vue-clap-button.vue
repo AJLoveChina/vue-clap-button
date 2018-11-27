@@ -13,10 +13,10 @@
 
     <div ref="circle" @click="click" @mouseenter="mouseenter" @mouseleave="mouseleave"
          class="vclapbtn-bin animated infinite"
-         :style="{boxShadow : isHover ? `${iconColor} 0 0 10px` : null,
-                borderColor : iconColor,
-                width: `${size - 2}px`,
-                height: `${size - 2}px`,
+         :style="{boxShadow : isHover && isHaveBorder ? `${iconColor} 0 0 10px` : null,
+                border : isHaveBorder ? `1px solid ${iconColor}` : null,
+                width: isHaveBorder ? `${size - 2}px` : `${size}px`,
+                height: isHaveBorder ? `${size - 2}px` : `${size}px`,
                 position: 'relative',
                 backgroundColor: `${bgColor}`,
                 lineHeight: `${size}px`}"
@@ -97,7 +97,13 @@
         return this.clickedTime >= this.maxClick;
       },
       isShowCancelLove() {
-        return this.isAllHover && this.clickedTime > 0 && this.maxClick > 1 && this.mouseEnterClickTimes === 0;
+        return this.isSupportCancel && this.isAllHover && this.clickedTime > 0 && this.maxClick > 1 && this.mouseEnterClickTimes === 0;
+      },
+      isSupportCancel() {
+        return this.size >= 40;
+      },
+      isHaveBorder() {
+        return this.size >= 40;
       }
     },
     created() {
@@ -174,7 +180,6 @@
 
   .vclapbtn-bin {
     cursor: pointer;
-    border: 1px solid #ccc;
     border-radius: 50%;
     text-align: center;
   }

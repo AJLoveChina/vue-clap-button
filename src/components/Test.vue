@@ -3,6 +3,7 @@
     <vue-clap-button class="icon" ref="clap" @cancel="cancel" @clap="clap"></vue-clap-button>
     <vue-clap-button class="icon" icon="love" :max-click="3"></vue-clap-button>
     <vue-clap-button class="icon" icon="star" :max-click="10"></vue-clap-button>
+    <vue-clap-button class="icon" icon="star" :size="30"></vue-clap-button>
   </div>
 </template>
 
@@ -24,10 +25,11 @@
 
 <style>
   #app{
-    margin:40px;
+    margin:80px;
+    clear: both;
   }
   .icon{
-    float:left;
-    margin:15px;
+    display: inline-block;
+    margin:0 15px;
   }
 </style>
