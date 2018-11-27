@@ -4,12 +4,12 @@
     <div class="counter bounceInUp animated"
          v-if="maxClick > 1"
          v-show="clickedTime > 0 && isHover"
-         :style="{left: `${size / 2}px`, top: `-18px`, color: `${iconColorNormal}`}">
+         :style="{left: `${size / 2}px`, top: `-18px`, color: `${colorNormal}`}">
       +{{clickedTime}}
     </div>
     <icon-chips ref="chips" :size="size"/>
-    <cancel-love :size="size" :colorNormal="iconColorNormal" :colorActive="iconColorActive"
-      v-if="isShowCancelLove" @cancel="cancelLove()" />
+    <cancel-love :size="size" :colorNormal="colorNormal" :colorActive="colorActive"
+                 v-if="isShowCancelLove" @cancel="cancelLove()" />
 
     <div ref="circle" @click="click" @mouseenter="mouseenter" @mouseleave="mouseleave"
          class="vclapbtn-bin animated infinite"
@@ -56,11 +56,11 @@
         type: String,
         default: 'good'
       },
-      iconColorActive: {
+      colorActive: {
         type: String,
         default: "#F56C6C"
       },
-      iconColorNormal: {
+      colorNormal: {
         type: String,
         default: "#909399"
       },
@@ -91,7 +91,7 @@
         return this.clickedTime > 0;
       },
       iconColor() {
-        return this.isActive || this.clicking ? this.iconColorActive : this.iconColorNormal;
+        return this.isActive || this.clicking ? this.colorActive : this.colorNormal;
       },
       isReachMaxClick() {
         return this.clickedTime >= this.maxClick;

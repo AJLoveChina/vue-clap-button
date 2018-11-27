@@ -29,4 +29,28 @@ It is done! Really simple to use ? Yes ❤
 
 Want a complex example ? see following guide
 
+#### Attributes
+| parameter   | description                                    | type   | enum value       | default value |
+|-------------|------------------------------------------------|--------|------------------|---------------|
+| icon        | specify a icon                                 | String | good, star, love | good          |
+| size        | change the size of icon, in pixel              | Number | -                | 50            |
+| maxClick    | How many times can I love/like it?             | Number | -                | 1             |
+| bgColor     | background color of icon                       | String | -                | #FFF          |
+| colorActive | color for icon with claps                | String | -                | #F56C6C       |
+| colorNormal | normal or initial color for icon without claps | String | -                | #909399       |
 
+#### Events
+| event name | description              | callback parameter                    |
+|------------|--------------------------|---------------------------------------|
+| cancel     | user cancel all claps on it  | -                                     |
+| clap       | user give one love on it | total claps given now (type : number) |
+
+
+#### Methods
+| method name | description      | return value |
+|-------------|------------------|--------------|
+| getClaps    | get total claps  | type:Number  |
+
+#### License
+
+MIT
