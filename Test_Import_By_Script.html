@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue-clap-button demo</title>
+</head>
+<body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.11/vue.js"></script>
+<script src='https://cdn.jsdelivr.net/gh/AJLoveChina/vue-clap-button/dist/vue-clap-button.js'></script>
+
+
+
+<div id="app">
+  <vue-clap-button class="icon"></vue-clap-button>
+  <vue-clap-button class="icon" icon="love"></vue-clap-button>
+  <vue-clap-button class="icon" icon="star"></vue-clap-button>
+  <vue-clap-button class="icon" icon="good" :size="30"></vue-clap-button>
+  <vue-clap-button class="icon" icon="love" :size="30"></vue-clap-button>
+  <vue-clap-button class="icon" icon="star" :size="30"></vue-clap-button>
+</div>
+
+
+<style>
+  #app{
+    margin:40px;
+  }
+  .icon{
+    display: inline-block;
+    vertical-align: middle;
+    margin:0 15px;
+  }
+</style>
+<script>
+  new Vue({
+    el: "#app"
+  })
+</script>
+</body>
+</html>
