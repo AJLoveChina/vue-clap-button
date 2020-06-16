@@ -78,6 +78,10 @@
         type: Number,
         default: 50
       },
+      supportCancel: {
+        type: Boolean,
+        default: true
+      },
     },
     data() {
       return {
@@ -102,7 +106,7 @@
         return this.isSupportCancel && this.isAllHover && this.clickedTime > 0 && this.maxClick > 1 && this.mouseEnterClickTimes === 0;
       },
       isSupportCancel() {
-        return this.size >= 40;
+        return this.supportCancel && this.size >= 40;
       },
       isHaveBorder() {
         return this.size >= 40;
