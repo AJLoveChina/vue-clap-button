@@ -78,13 +78,17 @@
         type: Number,
         default: 50
       },
+      initClicked: {
+        type:Number,
+        default:0
+      }
     },
     data() {
       return {
         isAllHover: false,
         isHover: false,
         clicking: false,
-        clickedTime: 0,
+        clickedTime: this.initClicked,
         mouseEnterClickTimes: 0,
       }
     },
@@ -109,6 +113,9 @@
       }
     },
     created() {
+      if (this.initClicked > this.maxClick) {
+        return console.error("prop initClicked value must <= maxClick")
+      }
       this.debounceEffect = util.debounce(this._debounceEffect, 300);
       this.debounceLoveOver = util.debounce(this._debounceLoveOver, 1000);
       let iconsList = ['good', 'love', 'star'];

@@ -3,11 +3,11 @@
 > A Medium like clap button. Inspired by [react-clap-button](https://github.com/Kikobeats/react-clap-button)
 
 ### Install
-The recommended way is using `npm` 
+The recommended way is using `npm`
 ``` bash
-npm install vue-clap-button --save 
+npm install vue-clap-button --save
 ```
-Also you can insert script tag in your html file after vue script 
+Also you can insert script tag in your html file after vue script
 ```html
 <script src="dist/vue-clap-button.js"></script>
 ```
@@ -25,7 +25,7 @@ Then in your `.vue` file
 ```vue
 <vue-clap-button />
 ```
-It is done! Really simple to use ? Yes ❤ 
+It is done! Really simple to use ? Yes ❤
 
 Want a complex example ? see following guide
 
@@ -38,6 +38,7 @@ Want a complex example ? see following guide
 | bgColor     | background color of icon                       | String | -                | #FFF          |
 | colorActive | color for icon with claps                | String | -                | #F56C6C       |
 | colorNormal | normal or initial color for icon without claps | String | -                | #909399       |
+| initClicked | for button which initial state is clicked | Number | -                | 0       |
 
 #### Events
 | event name | description              | callback parameter                    |

@@ -3,7 +3,7 @@
     <vue-clap-button class="icon" ref="clap" @cancel="cancel" @clap="clap"></vue-clap-button>
     <vue-clap-button class="icon" icon="love" :max-click="3"></vue-clap-button>
     <vue-clap-button class="icon" icon="star" :max-click="10"></vue-clap-button>
-    <vue-clap-button class="icon" icon="star" :size="30"></vue-clap-button>
+    <vue-clap-button class="icon" icon="star" :size="30" :initClicked="1"></vue-clap-button>
 
     <vue-clap-button class="icon" color-active="#409EFF" color-normal="#E6A23C"/>
   </div>
