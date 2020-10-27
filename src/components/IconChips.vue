@@ -1,7 +1,7 @@
 <template>
   <div>
-    <template v-for="i in chips" v-if="active">
-      <div :key="i" class="chips-wrap" :style="{top:`${- size -10 + sizeHalf}px`, left: `${sizeHalf}px`, height: `${size * 2 + 20}px`, transform: `rotate(${degOffset * i}deg)`}">
+    <template v-for="i in chips" :key="i" v-if="active">
+      <div class="chips-wrap" :style="{top:`${- size -10 + sizeHalf}px`, left: `${sizeHalf}px`, height: `${size * 2 + 20}px`, transform: `rotate(${degOffset * i}deg)`}">
         <icon-base class="chip iconchipEffect animated" :width="chipSize" :height="chipSize"
                    :iconColor="randomColor()"
                    :style="{left: `${- chipSize / 2}px`, width: `${chipSize}px`, height: `${chipSize}px`}">
