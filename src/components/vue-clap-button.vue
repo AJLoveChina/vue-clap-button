@@ -118,11 +118,6 @@
       }
       this.debounceEffect = util.debounce(this._debounceEffect, 300);
       this.debounceLoveOver = util.debounce(this._debounceLoveOver, 1000);
-      let iconsList = ['good', 'love', 'star'];
-      this.icon = this.icon.toLowerCase();
-      if (iconsList.indexOf(this.icon) === -1) {
-        this.icon = iconsList[0];
-      }
     },
     methods: {
       mouseleave() {
